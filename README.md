@@ -1,4 +1,4 @@
-# Sistema de Irrigação Automatizado
+# Sistema de Irrigação
 
 Projeto acadêmico de Programação Orientada a Objetos em C++.
 
