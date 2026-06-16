@@ -19,7 +19,7 @@ O sensor não mede nada fisicamente. Ele guarda o valor informado pelo usuário 
 float umidadeAtual;
 ```
 
-## Métodos Previstos
+## Métodos Atuais
 
 ```cpp
 SensorUmidade(float umidadeAtual);
@@ -69,14 +69,14 @@ if (sensor.soloEstaSeco(40)) {
 }
 ```
 
-## Checklist de Implementação
+## Conferência da Implementação Atual
 
-- Criar atributo privado `umidadeAtual`.
-- Criar construtor.
-- Criar getter.
-- Criar setter para atualizar o valor recebido.
-- Criar método `soloEstaSeco`.
-- Criar método `soloMuitoUmido`.
+- Atributo privado `umidadeAtual`.
+- Construtor com a umidade inicial.
+- Getter da umidade atual.
+- Setter para atualizar o valor recebido.
+- Método `soloEstaSeco`.
+- Método `soloMuitoUmido`.
 
 ## Links Relacionados
 

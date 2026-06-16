@@ -30,6 +30,12 @@ void ConsoleView::iniciar() {
         case 3:
             alterarUmidade();
             break;
+        case 4:
+            alterarTemperatura();
+            break;
+        case 5:
+            abastecerReservatorio();
+            break;
         case 0:
             cout << "Encerrando o sistema." << endl;
             break;
@@ -50,31 +56,36 @@ void ConsoleView::exibirMenu() {
     cout << "1 - Verificar sistema" << endl;
     cout << "2 - Exibir status atual" << endl;
     cout << "3 - Alterar umidade do solo" << endl;
+    cout << "4 - Alterar temperatura" << endl;
+    cout << "5 - Abastecer reservatorio" << endl;
     cout << "0 - Sair" << endl;
     cout << endl;
 }
 
 // Le uma opcao valida do menu.
 int ConsoleView::lerOpcao() {
-    return lerInteiroEntre("Escolha uma opcao: ", 0, 3);
+    return lerInteiroEntre("Escolha uma opcao: ", 0, 5);
 }
 
-// Pergunta ao sistema se a planta precisa de irrigacao.
+// Aciona a verificacao completa no sistema e apenas exibe o resultado.
 void ConsoleView::verificarSistema() {
-    if (sistema.precisaIrrigar()) {
-        cout << "Solo seco. A planta precisa de irrigacao." << endl;
-    } else {
-        cout << "Solo adequado. Nao precisa irrigar agora." << endl;
-    }
+    ResultadoVerificacao resultado = sistema.verificarSistema();
+    exibirResultadoVerificacao(resultado);
 }
 
 // Mostra os dados que o sistema disponibiliza para a interface.
 void ConsoleView::exibirStatus() {
-    cout << "Status atual" << endl;
+    cout << alerta.mensagemStatus() << endl;
     cout << "Planta: " << sistema.getNomePlanta() << endl;
     cout << "Umidade atual: " << sistema.getUmidadeAtual() << "%" << endl;
     cout << "Umidade minima ideal: " << sistema.getUmidadeMinimaIdeal() << "%" << endl;
+    cout << "Temperatura atual: " << sistema.getTemperaturaAtual() << " C" << endl;
     cout << "Agua por irrigacao: " << sistema.getAguaPorIrrigacaoMl() << " mL" << endl;
+    cout << "Agua no reservatorio: " << sistema.getQuantidadeAguaReservatorioMl()
+         << " mL de " << sistema.getCapacidadeReservatorioMl() << " mL" << endl;
+    cout << "Espaco disponivel no reservatorio: "
+         << sistema.getEspacoDisponivelReservatorioMl() << " mL" << endl;
+    cout << "Bomba: " << (sistema.bombaEstaLigada() ? "Ligada" : "Desligada") << endl;
 }
 
 // Recebe uma nova leitura simulada e envia ao sistema.
@@ -85,9 +96,64 @@ void ConsoleView::alterarUmidade() {
     cout << "Umidade atualizada." << endl;
 }
 
-// Le texto e tenta converter para float.
-// Usar getline evita o estado de erro do cin quando o usuario digita letras.
-float ConsoleView::lerFloatEntre(string mensagem, float minimo, float maximo) {
+// Temperatura nao tem limite fixo no projeto; basta ser numerica.
+void ConsoleView::alterarTemperatura() {
+    float novaTemperatura = lerFloat("Informe a nova temperatura ambiente: ");
+    sistema.atualizarTemperatura(novaTemperatura);
+
+    cout << "Temperatura atualizada." << endl;
+}
+
+// A tela le o valor; o sistema abastece e devolve o excedente.
+void ConsoleView::abastecerReservatorio() {
+    float quantidadeMl = lerFloatMaiorQue("Informe a quantidade para abastecer em mL: ", 0);
+    float excedenteMl = sistema.abastecerReservatorio(quantidadeMl);
+
+    if (excedenteMl > 0) {
+        cout << alerta.mensagemAbastecimentoComExcedente(excedenteMl) << endl;
+    } else {
+        cout << alerta.mensagemAbastecimentoRealizado() << endl;
+    }
+}
+
+// Traduz o codigo tecnico do sistema para mensagens de usuario.
+void ConsoleView::exibirResultadoVerificacao(ResultadoVerificacao resultado) {
+    switch (resultado) {
+    case RESULTADO_SOLO_MUITO_UMIDO:
+        cout << alerta.mensagemSoloMuitoUmido() << endl;
+        break;
+    case RESULTADO_SOLO_ADEQUADO:
+        cout << alerta.mensagemSoloAdequado() << endl;
+        break;
+    case RESULTADO_TEMPERATURA_ALTA_SEM_IRRIGACAO:
+        cout << alerta.mensagemSoloAdequado() << endl;
+        cout << alerta.mensagemTemperaturaAlta() << endl;
+        break;
+    case RESULTADO_AGUA_INSUFICIENTE:
+        cout << alerta.mensagemSoloSeco() << endl;
+        cout << alerta.mensagemAguaInsuficiente() << endl;
+        break;
+    case RESULTADO_IRRIGACAO_REALIZADA:
+        cout << alerta.mensagemBombaLigada() << endl;
+        cout << alerta.mensagemIrrigacaoRealizada() << endl;
+        cout << alerta.mensagemBombaDesligada() << endl;
+        break;
+    case RESULTADO_IRRIGACAO_REFORCADA:
+        cout << alerta.mensagemBombaLigada() << endl;
+        cout << alerta.mensagemIrrigacaoReforcada() << endl;
+        cout << alerta.mensagemBombaDesligada() << endl;
+        break;
+    case RESULTADO_IRRIGACAO_COM_TEMPERATURA_BAIXA:
+        cout << alerta.mensagemTemperaturaBaixa() << endl;
+        cout << alerta.mensagemBombaLigada() << endl;
+        cout << alerta.mensagemIrrigacaoRealizada() << endl;
+        cout << alerta.mensagemBombaDesligada() << endl;
+        break;
+    }
+}
+
+// Le qualquer numero real. Regras de intervalo ficam em outros metodos.
+float ConsoleView::lerFloat(string mensagem) {
     string entrada;
     float valor;
 
@@ -95,7 +161,6 @@ float ConsoleView::lerFloatEntre(string mensagem, float minimo, float maximo) {
         cout << mensagem;
         getline(cin, entrada);
 
-        // stringstream transforma a string em um "mini cin" para extrair numero.
         stringstream fluxoEntrada(entrada);
 
         if (!(fluxoEntrada >> valor)) {
@@ -107,6 +172,34 @@ float ConsoleView::lerFloatEntre(string mensagem, float minimo, float maximo) {
             cout << "Valor invalido. Nao misture numeros com letras." << endl;
             continue;
         }
+
+        return valor;
+    }
+}
+
+// Reaproveita lerFloat e aplica apenas a regra de minimo aberto.
+float ConsoleView::lerFloatMaiorQue(string mensagem, float minimo) {
+    float valor;
+
+    while (true) {
+        valor = lerFloat(mensagem);
+
+        if (valor <= minimo) {
+            cout << "Valor invalido. Digite um numero maior que " << minimo << "." << endl;
+            continue;
+        }
+
+        return valor;
+    }
+}
+
+// Le texto e tenta converter para float.
+// Usar getline evita o estado de erro do cin quando o usuario digita letras.
+float ConsoleView::lerFloatEntre(string mensagem, float minimo, float maximo) {
+    float valor;
+
+    while (true) {
+        valor = lerFloat(mensagem);
 
         if (valor < minimo || valor > maximo) {
             cout << "Valor invalido. Digite um numero entre " << minimo << " e " << maximo << "." << endl;

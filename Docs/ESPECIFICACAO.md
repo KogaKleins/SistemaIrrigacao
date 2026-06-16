@@ -12,6 +12,8 @@ Este arquivo é o ponto de entrada da especificação. Ele não deve concentrar 
 
 O sistema simula uma irrigação automatizada para uma planta. Ele usa umidade do solo, temperatura ambiente e água disponível no reservatório para decidir se deve irrigar.
 
+Nesta entrega, os dados iniciais são criados no `main.cpp` e a interação acontece pelo menu do terminal.
+
 ## Mapa da Documentação
 
 Documento de origem:
@@ -47,16 +49,16 @@ Documento de origem:
 
 ## Leitura Recomendada
 
-Leitura mínima para começar:
+Leitura mínima para entender o projeto:
 
 1. Leia esta especificação.
 2. Leia [Escopo](projeto/escopo.md).
 3. Leia [Regras de negócio](regras/regras-de-negocio.md).
 4. Leia [Mapa das classes](classes/README.md).
 
-Para começar a codar:
+Para alterar ou revisar o código:
 
 1. Leia [Padrões do projeto](padroes/padroes-do-projeto.md).
 2. Siga o [Roteiro de implementação](projeto/roteiro-de-implementacao.md).
 
-Não é necessário ler todos os arquivos. Os documentos de cada classe são consulta para quando alguém for implementar aquela parte.
+Não é necessário ler todos os arquivos. Os documentos de cada classe são consulta para entender ou alterar aquela parte.

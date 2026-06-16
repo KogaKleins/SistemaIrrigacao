@@ -18,7 +18,7 @@ O sensor não deve decidir se a irrigação acontece. Ele apenas guarda e classi
 float temperaturaAtual;
 ```
 
-## Métodos Previstos
+## Métodos Atuais
 
 ```cpp
 SensorTemperatura(float temperaturaAtual);
@@ -44,7 +44,7 @@ Quem lê o valor digitado pelo usuário é `ConsoleView`.
 
 ## Validações
 
-A temperatura será aceita como valor numérico real.
+A temperatura é aceita como valor numérico real.
 
 Não haverá limite rígido mínimo ou máximo, porque temperaturas podem variar bastante. A validação principal é impedir entrada não numérica na interface.
 
@@ -65,13 +65,13 @@ if (sensor.temperaturaAlta()) {
 }
 ```
 
-## Checklist de Implementação
+## Conferência da Implementação Atual
 
-- Criar atributo privado `temperaturaAtual`.
-- Criar construtor.
-- Criar getter.
-- Criar setter para atualizar o valor recebido.
-- Criar métodos de classificação.
+- Atributo privado `temperaturaAtual`.
+- Construtor com a temperatura inicial.
+- Getter da temperatura atual.
+- Setter para atualizar o valor recebido.
+- Métodos de classificação.
 
 ## Links Relacionados
 

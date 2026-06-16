@@ -2,7 +2,7 @@
 
 Esta pasta serve para consultar cada classe isoladamente.
 
-Não precisa ler todos esses arquivos antes de começar. Leia o mapa abaixo e depois abra apenas a classe que você for implementar.
+Não precisa ler todos esses arquivos antes de começar. Leia o mapa abaixo e depois abra apenas a classe que você for consultar ou alterar.
 
 ## Classes de Modelo
 

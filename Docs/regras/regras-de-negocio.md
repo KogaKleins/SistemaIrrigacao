@@ -7,7 +7,8 @@ A umidade do solo é o principal fator de decisão.
 | Condição | Estado do solo | Decisão |
 | --- | --- | --- |
 | Umidade atual menor que a umidade mínima ideal | Seco | A planta precisa de irrigação. |
-| Umidade atual maior ou igual à umidade mínima ideal | Adequado ou muito úmido | A planta não precisa de irrigação. |
+| Umidade atual maior ou igual à umidade mínima ideal e menor ou igual a 70% | Adequado | A planta não precisa de irrigação. |
+| Umidade atual maior que 70% | Muito úmido | A irrigação é bloqueada. |
 
 ## RN02 - Temperatura Não Liga a Bomba Sozinha
 
@@ -81,31 +82,40 @@ Ao abastecer:
 | Condição | Resultado |
 | --- | --- |
 | A quantidade adicionada cabe no reservatório | Soma normalmente. |
-| A quantidade adicionada ultrapassa a capacidade máxima | O reservatório fica cheio e o sistema informa que parte da água não coube. |
+| A quantidade adicionada ultrapassa a capacidade máxima | O reservatório fica cheio e retorna quanto não coube para o sistema informar ao usuário. |
 
 ## RN09 - Entradas Inválidas
 
 O sistema deve rejeitar entradas fora dos limites definidos.
 
-Exemplos:
+Nesta entrega, a `ConsoleView` valida as entradas digitadas durante o uso do menu.
+
+Exemplos já tratados pela interface:
 
 - umidade menor que 0%;
 - umidade maior que 100%;
+- opção de menu fora do intervalo;
+- abastecimento com valor menor ou igual a 0;
+- texto ou mistura de número com letra em campos numéricos.
+
+Os dados iniciais fixos no `main.cpp` devem ser mantidos válidos manualmente:
+
 - água por irrigação menor ou igual a 0;
 - reservatório com quantidade atual maior que a capacidade máxima;
-- abastecimento com valor menor ou igual a 0.
+- reservatório com capacidade menor ou igual a 0.
 
 ## Resumo do Fluxo
 
 Quando o usuário escolher **Verificar sistema**:
 
-1. Ler a umidade atual.
+1. Consultar a umidade atual já armazenada no sensor.
 2. Comparar a umidade atual com a umidade mínima ideal da planta.
-3. Se o solo não estiver seco, não ligar a bomba e exibir o estado do solo.
-4. Se o solo estiver seco, calcular a água necessária.
-5. Verificar se o reservatório tem água suficiente.
-6. Se houver água suficiente, ligar a bomba, consumir água e desligar a bomba.
-7. Se não houver água suficiente, manter a bomba desligada e exibir alerta.
+3. Se o solo estiver muito úmido, bloquear a irrigação.
+4. Se o solo não estiver seco, não ligar a bomba e exibir o estado do solo.
+5. Se o solo estiver seco, calcular a água necessária.
+6. Verificar se o reservatório tem água suficiente.
+7. Se houver água suficiente, ligar a bomba, consumir água e desligar a bomba.
+8. Se não houver água suficiente, manter a bomba desligada e exibir alerta.
 
 ## Situações Esperadas
 

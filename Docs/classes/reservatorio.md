@@ -21,7 +21,7 @@ float capacidadeMaximaMl;
 float quantidadeAtualMl;
 ```
 
-## Métodos Previstos
+## Métodos Atuais
 
 ```cpp
 Reservatorio(float capacidadeMaximaMl, float quantidadeAtualMl);
@@ -40,7 +40,10 @@ Quem pede o valor ao usuário é `ConsoleView`.
 
 ## Observação Sobre `abastecer`
 
-O método pode retornar quanto realmente foi abastecido.
+O método retorna quanto não coube no reservatório.
+
+- Se tudo couber, retorna `0`.
+- Se ultrapassar a capacidade, enche o reservatório até o máximo e retorna o excedente.
 
 Exemplo:
 
@@ -50,7 +53,10 @@ Exemplo:
 | Quantidade atual | 900 mL |
 | Tentativa de abastecimento | 300 mL |
 | Quantidade realmente adicionada | 100 mL |
+| Quantidade que não coube | 200 mL |
 | Quantidade final | 1000 mL |
+
+Assim, o `Reservatorio` protege o limite físico. O `SistemaIrrigacao` pode usar o valor retornado para avisar a `ConsoleView`, e a `ConsoleView` mostra a mensagem ao usuário.
 
 ## Validações
 
@@ -80,19 +86,19 @@ if (reservatorio.temAguaSuficiente(150)) {
 }
 ```
 
-## Checklist de Implementação
+## Conferência da Implementação Atual
 
-- Criar atributos privados.
-- Receber valores iniciais válidos.
-- Criar getters.
-- Criar `getEspacoDisponivelMl`.
-- Criar `temAguaSuficiente`.
-- Criar `consumirAgua`.
-- Criar `abastecer`.
+- Atributos privados.
+- Recebimento de valores iniciais válidos.
+- Getters.
+- Método `getEspacoDisponivelMl`.
+- Método `temAguaSuficiente`.
+- Método `consumirAgua`.
+- Método `abastecer`.
+- `abastecer` retorna o excedente quando a capacidade é ultrapassada.
 
 ## Links Relacionados
 
 - [BombaAgua](bomba-agua.md)
 - [SistemaIrrigacao](sistema-irrigacao.md)
 - [Regras de negócio](../regras/regras-de-negocio.md)
-

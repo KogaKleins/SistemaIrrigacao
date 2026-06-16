@@ -12,7 +12,7 @@ Combinados simples para o código ficar consistente.
 
 ## Arquivos
 
-Cada classe terá um arquivo `.h` e um arquivo `.cpp`.
+Cada classe tem um arquivo `.h` e um arquivo `.cpp`.
 
 Exemplo:
 
@@ -84,7 +84,7 @@ Fluxo esperado:
 - Classes ligadas à interface de terminal ficam em `src/views`.
 - `main.cpp` deve apenas iniciar a aplicação.
 
-Regras do sistema ficam em [Regras de negócio](../regras/regras-de-negocio.md). O que entra ou não entra na primeira versão fica em [Escopo](../projeto/escopo.md).
+Regras do sistema ficam em [Regras de negócio](../regras/regras-de-negocio.md). O que entra ou não entra na entrega fica em [Escopo](../projeto/escopo.md).
 
 ## Comentários
 
@@ -108,10 +108,22 @@ x++;
 `main.cpp` deve ser pequeno:
 
 ```cpp
+#include "models/Planta.h"
+#include "models/Reservatorio.h"
+#include "models/SensorTemperatura.h"
+#include "models/SensorUmidade.h"
+#include "services/SistemaIrrigacao.h"
 #include "views/ConsoleView.h"
 
 int main() {
-    ConsoleView view;
+    Planta planta("Manjericao", 40, 150);
+    SensorUmidade sensorUmidade(25);
+    SensorTemperatura sensorTemperatura(25);
+    Reservatorio reservatorio(1000, 600);
+
+    SistemaIrrigacao sistema(planta, sensorUmidade, sensorTemperatura, reservatorio);
+    ConsoleView view(sistema);
+
     view.iniciar();
 
     return 0;

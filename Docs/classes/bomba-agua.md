@@ -18,10 +18,11 @@ A bomba é simples: ela só sabe se está ligada ou desligada.
 bool ligada;
 ```
 
-## Métodos Previstos
+## Métodos Atuais
 
 ```cpp
 BombaAgua();
+BombaAgua(bool ligada);
 
 void ligar();
 void desligar();
@@ -62,13 +63,15 @@ bomba.ligar();
 bomba.desligar();
 ```
 
-## Checklist de Implementação
+O construtor com `bool` pode ser usado em testes ou simulações específicas, mas o uso normal cria a bomba desligada.
 
-- Criar atributo privado `ligada`.
-- Inicializar como `false`.
-- Criar método `ligar`.
-- Criar método `desligar`.
-- Criar método `estaLigada`.
+## Conferência da Implementação Atual
+
+- Atributo privado `ligada`.
+- Inicialização padrão como `false`.
+- Método `ligar`.
+- Método `desligar`.
+- Método `estaLigada`.
 
 ## Links Relacionados
 

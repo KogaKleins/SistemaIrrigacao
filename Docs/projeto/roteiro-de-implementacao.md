@@ -1,10 +1,12 @@
 # Roteiro de Implementação
 
-Este roteiro define uma ordem segura para começar a codar sem misturar responsabilidades.
+Este roteiro registra uma ordem segura de implementação e o estado atual do projeto, sem misturar responsabilidades.
 
 ## Etapa 1 - Modelos Simples
 
-Implementar primeiro as classes que quase não dependem de outras:
+Status: implementada.
+
+As classes que quase não dependem de outras já estão em `src/models`:
 
 1. `Planta`
 2. `SensorUmidade`
@@ -12,13 +14,13 @@ Implementar primeiro as classes que quase não dependem de outras:
 4. `Reservatorio`
 5. `BombaAgua`
 
-Essas classes devem ter atributos privados, construtores e métodos simples.
+Essas classes têm atributos privados, construtores e métodos simples.
 
 ## Etapa 2 - Controlador Principal
 
-Implementar `SistemaIrrigacao`.
+Status: implementada.
 
-Ele deve receber ou criar os objetos principais e aplicar as regras:
+`SistemaIrrigacao` coordena os objetos principais e aplica as regras:
 
 - verificar umidade;
 - verificar temperatura;
@@ -29,15 +31,15 @@ Ele deve receber ou criar os objetos principais e aplicar as regras:
 
 ## Etapa 3 - Mensagens
 
-Implementar `Alerta`.
+Status: implementada.
 
-Ele deve concentrar mensagens usadas pela interface, sem conter regra de negócio.
+`Alerta` concentra mensagens usadas pela interface, sem conter regra de negócio.
 
 ## Etapa 4 - Interface de Terminal
 
-Implementar `ConsoleView`.
+Status: implementada.
 
-Ela deve:
+A `ConsoleView`:
 
 - pedir dados ao usuário;
 - exibir menu;
@@ -47,22 +49,38 @@ Ela deve:
 
 ## Etapa 5 - Main
 
-Implementar `main.cpp`.
+Status: implementada com dados fixos.
 
 O arquivo deve ser simples:
 
 ```cpp
+#include "models/Planta.h"
+#include "models/Reservatorio.h"
+#include "models/SensorTemperatura.h"
+#include "models/SensorUmidade.h"
+#include "services/SistemaIrrigacao.h"
 #include "views/ConsoleView.h"
 
 int main() {
-    ConsoleView view;
+    Planta planta("Manjericao", 40, 150);
+    SensorUmidade sensorUmidade(25);
+    SensorTemperatura sensorTemperatura(25);
+    Reservatorio reservatorio(1000, 600);
+
+    SistemaIrrigacao sistema(planta, sensorUmidade, sensorTemperatura, reservatorio);
+    ConsoleView view(sistema);
+
     view.iniciar();
 
     return 0;
 }
 ```
 
+Como a entrega não inclui cadastro inicial pelo terminal, o `main.cpp` cria dados fixos para iniciar o fluxo. Mesmo assim, ele não aplica regra de negócio.
+
 ## Etapa 6 - Validação Manual
+
+Status: deve ser executada após mudanças no código.
 
 Executar manualmente os cenários principais:
 
@@ -72,3 +90,12 @@ Executar manualmente os cenários principais:
 - solo adequado;
 - solo muito úmido;
 - abastecimento do reservatório.
+
+## Itens Fora do Escopo da Entrega
+
+- Cadastro inicial da planta pelo terminal.
+- Troca da planta durante a execução.
+- Persistência em arquivo ou banco de dados.
+- Sensores ou hardware reais.
+
+Esses itens não são necessários para atender à proposta inicial. A entrega se concentra na simulação em terminal e na aplicação de POO.

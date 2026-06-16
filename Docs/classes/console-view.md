@@ -11,6 +11,8 @@ Ela é a classe que conversa com o usuário, mas não deve conter a regra princi
 - Exibir menu.
 - Ler opções do usuário.
 - Pedir nova umidade.
+- Pedir nova temperatura.
+- Pedir quantidade para abastecer o reservatório.
 - Chamar métodos do `SistemaIrrigacao`.
 - Mostrar mensagens no terminal.
 
@@ -20,7 +22,7 @@ Ela é a classe que conversa com o usuário, mas não deve conter a regra princi
 
 `ConsoleView` precisa conversar com o sistema principal e exibir mensagens.
 
-Por isso, ela provavelmente terá objetos como:
+Por isso, ela tem estes objetos:
 
 ```cpp
 SistemaIrrigacao sistema;
@@ -37,7 +39,7 @@ O fluxo é:
 4. `SistemaIrrigacao` manipula os objetos e aplica as regras.
 5. `ConsoleView` mostra o resultado.
 
-## Métodos Previstos
+## Métodos Atuais
 
 ```cpp
 ConsoleView(SistemaIrrigacao sistema);
@@ -48,11 +50,25 @@ int lerOpcao();
 void verificarSistema();
 void exibirStatus();
 void alterarUmidade();
+void alterarTemperatura();
+void abastecerReservatorio();
 ```
 
-Na versão atual, a `ConsoleView` recebe um `SistemaIrrigacao` já criado. O cadastro inicial completo ficará para uma etapa posterior.
+Helpers internos usados pela própria `ConsoleView`:
 
-## Menu Previsto
+```cpp
+float lerFloat(string mensagem);
+int lerInteiroEntre(string mensagem, int minimo, int maximo);
+float lerFloatEntre(string mensagem, float minimo, float maximo);
+float lerFloatMaiorQue(string mensagem, float minimo);
+void exibirResultadoVerificacao(ResultadoVerificacao resultado);
+```
+
+Nesta entrega, a `ConsoleView` recebe um `SistemaIrrigacao` já criado. Os dados iniciais são montados no `main.cpp`; a tela controla apenas as ações disponíveis no menu.
+
+`verificarSistema()` na `ConsoleView` representa a opção do menu. Ele deve apenas chamar `SistemaIrrigacao::verificarSistema()` e exibir a mensagem adequada. A regra completa continua no `SistemaIrrigacao`.
+
+## Menu Atual
 
 ```
 ====================================
@@ -62,6 +78,8 @@ Na versão atual, a `ConsoleView` recebe um `SistemaIrrigacao` já criado. O cad
 1 - Verificar sistema
 2 - Exibir status atual
 3 - Alterar umidade do solo
+4 - Alterar temperatura
+5 - Abastecer reservatorio
 0 - Sair
 
 Escolha uma opção:
@@ -72,6 +90,7 @@ Escolha uma opção:
 - Não deve calcular água reforçada.
 - Não deve decidir se a bomba liga.
 - Não deve consumir água diretamente.
+- Não deve abastecer o reservatório diretamente.
 - Não deve acessar atributos privados das classes.
 
 ## Conferência de Entrada
@@ -92,14 +111,16 @@ Exemplos:
 - umidade menor que 0 ou maior que 100;
 - entrada não numérica onde o sistema espera número.
 
-## Checklist de Implementação
+## Conferência da Implementação Atual
 
-- Criar loop principal.
-- Criar menu.
-- Criar leitura de opção.
-- Criar chamadas para verificar sistema, exibir status e alterar umidade.
-- Validar entrada da umidade.
-- Encerrar quando o usuário escolher `0`.
+- Loop principal.
+- Menu.
+- Leitura de opção.
+- Chamadas para verificar sistema, exibir status e alterar umidade.
+- Chamadas para alterar temperatura e abastecer reservatório.
+- Validação da entrada da umidade.
+- Validação da entrada do abastecimento.
+- Encerramento quando o usuário escolhe `0`.
 
 ## Links Relacionados
 

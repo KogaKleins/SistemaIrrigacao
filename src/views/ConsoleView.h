@@ -4,6 +4,7 @@
 #include <string>
 
 #include "../services/SistemaIrrigacao.h"
+#include "Alerta.h"
 
 using namespace std;
 
@@ -12,10 +13,14 @@ using namespace std;
 class ConsoleView {
 private:
     SistemaIrrigacao sistema;
+    Alerta alerta;
 
-    // Le entradas numericas com validacao basica de intervalo.
+    // Helpers de leitura e exibicao usados pelas opcoes do menu.
+    float lerFloat(string mensagem);
     int lerInteiroEntre(string mensagem, int minimo, int maximo);
     float lerFloatEntre(string mensagem, float minimo, float maximo);
+    float lerFloatMaiorQue(string mensagem, float minimo);
+    void exibirResultadoVerificacao(ResultadoVerificacao resultado);
 
 public:
     // Recebe um sistema pronto para controlar pela tela.
@@ -30,6 +35,8 @@ public:
     void verificarSistema();
     void exibirStatus();
     void alterarUmidade();
+    void alterarTemperatura();
+    void abastecerReservatorio();
 };
 
 #endif

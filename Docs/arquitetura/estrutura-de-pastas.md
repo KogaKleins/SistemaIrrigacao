@@ -1,11 +1,12 @@
 # Estrutura de Pastas
 
-## Estrutura Prevista
+## Estrutura Atual
 
 ```
 Sistema_Irrigacao/
 |-- README.md
 |-- propostaInicial.md
+|-- build/
 |-- Docs/
 |   |-- ESPECIFICACAO.md
 |   |-- projeto/
@@ -51,7 +52,28 @@ Sistema_Irrigacao/
         `-- ConsoleView.cpp
 ```
 
+`build/` guarda arquivos gerados pela compilação. Não colocar código-fonte nessa pasta.
+
 ## Responsabilidade das Pastas
+
+## Arquitetura Usada
+
+O projeto usa uma arquitetura em camadas simples, próxima da ideia de MVC:
+
+| Camada do projeto | Relação com MVC | Responsabilidade |
+| --- | --- | --- |
+| `src/models` | Model | Representa os objetos do domínio, como planta, sensores, reservatório e bomba. |
+| `src/services` | Controller/Service | Coordena os models e aplica as regras de negócio. |
+| `src/views` | View | Faz a interação com o usuário pelo terminal. |
+
+Não é um MVC puro de aplicações web ou gráficas. Como o sistema é de terminal, não existe uma tela visual atualizada automaticamente. Mesmo assim, a separação segue o princípio central do MVC: cada parte tem uma responsabilidade clara.
+
+Essa divisão facilita explicar o projeto:
+
+- dados e comportamentos simples ficam nos models;
+- regras de irrigação ficam no serviço principal;
+- leitura e impressão no terminal ficam na view;
+- `main.cpp` apenas monta os objetos e inicia o programa.
 
 ### `src/models`
 
@@ -85,6 +107,10 @@ Exemplos:
 ### `Docs`
 
 Documentação do projeto.
+
+### `build`
+
+Arquivos gerados pelo compilador, como executáveis e objetos. Essa pasta fica fora de `src` para não misturar código-fonte com resultado de compilação.
 
 ## Regra de Organização
 

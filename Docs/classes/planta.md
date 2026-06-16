@@ -33,7 +33,7 @@ float umidadeMinimaIdeal;
 float aguaPorIrrigacaoMl;
 ```
 
-## Métodos Previstos
+## Métodos Atuais
 
 ```cpp
 Planta(string nome, float umidadeMinimaIdeal, float aguaPorIrrigacaoMl);
@@ -47,7 +47,7 @@ float getAguaPorIrrigacaoMl();
 
 Esses valores devem chegar válidos para a `Planta`.
 
-Na primeira versão, a validação amigável será feita antes de criar o objeto, na interface de terminal:
+Nesta entrega, os dados iniciais da planta são fixos no `main.cpp`, então esses valores devem ser mantidos válidos na própria montagem inicial:
 
 - `nome` não deve ser vazio.
 - `umidadeMinimaIdeal` deve estar entre 1 e 70.

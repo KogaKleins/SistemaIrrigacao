@@ -1,8 +1,8 @@
 # Escopo
 
-## O Sistema Vai Fazer
+## O Sistema Entrega
 
-- Cadastrar os dados iniciais de uma planta.
+- Usar dados iniciais fixos de uma planta no `main.cpp`.
 - Armazenar a umidade atual do solo.
 - Armazenar a temperatura ambiente atual.
 - Armazenar a capacidade máxima do reservatório.
@@ -12,9 +12,10 @@
 - Ligar e desligar a bomba durante uma irrigação válida.
 - Consumir água do reservatório depois de irrigar.
 - Exibir alertas e mensagens de status no terminal.
-- Permitir alterar umidade, temperatura e água do reservatório durante a execução.
+- Permitir alterar umidade e temperatura durante a execução.
+- Permitir abastecer o reservatório durante a execução.
 
-## O Sistema Não Vai Fazer
+## Fora do Escopo da Entrega
 
 - Não vai usar sensores físicos reais.
 - Não vai controlar hardware real.
@@ -22,12 +23,12 @@
 - Não vai trabalhar com várias plantas ao mesmo tempo.
 - Não vai recalcular automaticamente a umidade do solo depois da irrigação.
 - Não vai ter interface gráfica.
+- Não vai cadastrar uma nova planta pelo menu.
+- Não vai trocar a planta durante a execução.
 
-## Melhoria Opcional
+Esses itens não são pendências. Eles ficam fora da entrega para manter o projeto coerente com a proposta acadêmica: demonstrar POO, separação de responsabilidades e interação entre classes em uma simulação de irrigação.
 
-- Permitir trocar a planta durante a execução.
-
-Para a primeira versão, o sistema pode trabalhar com uma planta cadastrada no início. Isso já é suficiente para demonstrar POO.
+Para esta entrega, o sistema trabalha com uma planta criada no `main.cpp`. Isso já é suficiente para demonstrar POO e manter o foco na interação entre classes.
 
 ## Decisão Sobre Umidade Após Irrigação
 
@@ -37,6 +38,6 @@ Motivo: como é uma simulação, a umidade representa uma leitura do sensor. O u
 
 ## Unidade Padrão
 
-Todo volume de água será tratado em **mL**.
+Todo volume de água é tratado em **mL**.
 
 Isso evita misturar litros e mililitros no código e nos exemplos.
