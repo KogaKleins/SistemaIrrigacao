@@ -38,8 +38,8 @@ private:
     void irrigar();
 
 public:
+    // Construtor:
     // Recebe os models criados no main ou na tela.
-    // A bomba nao vem por parametro porque ela sempre nasce desligada
     // e passa a ser controlada pelo proprio SistemaIrrigacao.
     SistemaIrrigacao(
         Planta planta,

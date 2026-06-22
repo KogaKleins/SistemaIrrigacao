@@ -86,7 +86,7 @@ classDiagram
         + bool estaLigada()
     }
 
-    class ResultadoVerificacao {
+   class ResultadoVerificacao {
         <<enumeration>>
         RESULTADO_SOLO_MUITO_UMIDO
         RESULTADO_SOLO_ADEQUADO
@@ -94,7 +94,7 @@ classDiagram
         RESULTADO_AGUA_INSUFICIENTE
         RESULTADO_IRRIGACAO_REALIZADA
         RESULTADO_IRRIGACAO_REFORCADA
-        RESULTADO_IRRIGACAO_COM_TEMPERATURA_BAIXA
+        RESULTADO_IRRIGACAO_COM_TEMPERATURA_BAIXA 
     }
 
     class SistemaIrrigacao {
